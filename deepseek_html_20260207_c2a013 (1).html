@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="A Special Message For You">
+    <meta property="og:description" content="Click to reveal a heartfelt message">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518568814500-bf0f8d125f46?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&h=630&q=80">
+    <meta property="og:url" content="">
+    <title>A Special Message 💌</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #ffebee;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Teaser Page Styling */
+        #teaserPage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #ff7eb3 0%, #ff758c 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .teaser-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .teaser-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 2rem;
+            opacity: 0;
+            animation: teaseFall 10s linear infinite;
+        }
+        
+        @keyframes teaseFall {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                top: 100%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .teaser-content {
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 90%;
+            z-index: 2;
+            position: relative;
+            border: 5px solid #ff4081;
+        }
+        
+        .envelope {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: #ff4081;
+            animation: envelopeFloat 2s ease-in-out infinite;
+        }
+        
+        @keyframes envelopeFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+        
+        .teaser-title {
+            font-size: 2.5rem;
+            color: #d81b60;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 0px #ffcdd2;
+        }
+        
+        .teaser-subtitle {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+        
+        .teaser-name {
+            color: #ff4081;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
+        #openBtn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.4rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.4);
+            margin-top: 20px;
+        }
+        
+        #openBtn:hover {
+            background-color: #d81b60;
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(216, 27, 96, 0.5);
+        }
+        
+        /* Main Proposal Page Styling (hidden initially) */
+        #proposalPage {
+            display: none;
+            background-color: #ffebee;
+            background-image: radial-gradient(#ff7eb3 2px, transparent 2px);
+            background-size: 40px 40px;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .heart-frame {
+            background-color: #ff4081;
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .heart-frame::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #ff4081, #ff79b0, #ff4081);
+        }
+        
+        .content {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #d81b60;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 0px #ffcdd2;
+        }
+        
+        .name {
+            color: #ff4081;
+            text-decoration: underline;
+            text-shadow: 1px 1px 0px #ffcdd2;
+        }
+        
+        .message {
+            font-size: 1.3rem;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            position: relative;
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.4rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-yes {
+            background-color: #4CAF50;
+            color: white;
+            z-index: 5;
+        }
+        
+        .btn-yes:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-no {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+            transition: all 0.5s ease;
+        }
+        
+        .roses {
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .rose {
+            font-size: 2.5rem;
+            color: #ff4081;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .rose:nth-child(2) {
+            animation-delay: 0.5s;
+            color: #d81b60;
+        }
+        
+        .rose:nth-child(3) {
+            animation-delay: 1s;
+            color: #ff79b0;
+        }
+        
+        .rose:nth-child(4) {
+            animation-delay: 1.5s;
+            color: #d81b60;
+        }
+        
+        .rose:nth-child(5) {
+            animation-delay: 2s;
+            color: #ff4081;
+        }
+        
+        .balloons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .balloon {
+            position: absolute;
+            width: 60px;
+            height: 70px;
+            border-radius: 50%;
+            background: #ff4081;
+            bottom: -100px;
+            animation: rise 20s linear infinite;
+        }
+        
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 60px;
+            background: #ff4081;
+            top: 70px;
+            left: 28px;
+        }
+        
+        .balloon:nth-child(1) {
+            left: 10%;
+            background: #ff4081;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
+        
+        .balloon:nth-child(2) {
+            left: 20%;
+            background: #d81b60;
+            animation-delay: 2s;
+            animation-duration: 22s;
+        }
+        
+        .balloon:nth-child(3) {
+            left: 30%;
+            background: #ff79b0;
+            animation-delay: 4s;
+            animation-duration: 16s;
+        }
+        
+        .balloon:nth-child(4) {
+            left: 40%;
+            background: #ff4081;
+            animation-delay: 6s;
+            animation-duration: 20s;
+        }
+        
+        .balloon:nth-child(5) {
+            left: 50%;
+            background: #d81b60;
+            animation-delay: 8s;
+            animation-duration: 19s;
+        }
+        
+        .balloon:nth-child(6) {
+            left: 60%;
+            background: #ff79b0;
+            animation-delay: 10s;
+            animation-duration: 21s;
+        }
+        
+        .balloon:nth-child(7) {
+            left: 70%;
+            background: #ff4081;
+            animation-delay: 12s;
+            animation-duration: 17s;
+        }
+        
+        .balloon:nth-child(8) {
+            left: 80%;
+            background: #d81b60;
+            animation-delay: 14s;
+            animation-duration: 23s;
+        }
+        
+        .balloon:nth-child(9) {
+            left: 90%;
+            background: #ff79b0;
+            animation-delay: 16s;
+            animation-duration: 18s;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+        
+        @keyframes rise {
+            0% {
+                transform: translateY(0) rotate(5deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(10deg);
+                opacity: 0.7;
+            }
+        }
+        
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .heart {
+            position: absolute;
+            color: #ff4081;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: fall 8s linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: translateX(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            100% {
+                top: 100%;
+                transform: translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .response-message {
+            margin-top: 30px;
+            font-size: 2rem;
+            color: #d81b60;
+            font-weight: bold;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .response-message.show {
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .teaser-title {
+                font-size: 2rem;
+            }
+            
+            .message {
+                font-size: 1.1rem;
+            }
+            
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+            }
+            
+            .btn-no {
+                position: relative;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .teaser-title {
+                font-size: 1.7rem;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+            
+            .teaser-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Teaser Page (shown first when link is shared) -->
+    <div id="teaserPage">
+        <div class="teaser-hearts" id="teaserHearts"></div>
+        <div class="teaser-content">
+            <div class="envelope">💌</div>
+            <h1 class="teaser-title">A Special Message For You</h1>
+            <p class="teaser-subtitle">This message is specially crafted for <span class="teaser-name">Sandhya</span></p>
+            <p class="teaser-subtitle">Tap the button below to reveal what's inside</p>
+            <button id="openBtn">Open Your Message 💖</button>
+        </div>
+    </div>
+    
+    <!-- Main Proposal Page (hidden until opened) -->
+    <div id="proposalPage">
+        <div class="balloons" id="balloons"></div>
+        <div class="hearts" id="hearts"></div>
+        
+        <div class="container">
+            <div class="heart-frame">
+                <div class="content">
+                    <h1>Will You Be My Valentine, <span class="name">Sandhya</span>?</h1>
+                    
+                    <div class="roses">
+                        <div class="rose">🌹</div>
+                        <div class="rose">🌹</div>
+                        <div class="rose">🌹</div>
+                        <div class="rose">🌹</div>
+                        <div class="rose">🌹</div>
+                    </div>
+                    
+                    <p class="message">
+                        Every moment with you feels special, but on Valentine's Day, 
+                        I want to make it extra memorable. You fill my days with joy and my heart with love.
+                    </p>
+                    <p class="message">
+                        Will you make me the happiest person and be my Valentine?
+                    </p>
+                    
+                    <div class="buttons-container">
+                        <button class="btn btn-yes" id="yesBtn">YES! 💖</button>
+                        <button class="btn btn-no" id="noBtn">No 😢</button>
+                    </div>
+                    
+                    <div class="response-message" id="responseMessage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const teaserPage = document.getElementById('teaserPage');
+            const proposalPage = document.getElementById('proposalPage');
+            const openBtn = document.getElementById('openBtn');
+            const teaserHearts = document.getElementById('teaserHearts');
+            const yesBtn = document.getElementById('yesBtn');
+            const noBtn = document.getElementById('noBtn');
+            const responseMessage = document.getElementById('responseMessage');
+            const balloonsContainer = document.getElementById('balloons');
+            const heartsContainer = document.getElementById('hearts');
+            
+            // Create falling hearts for teaser page
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'teaser-heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 5 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                teaserHearts.appendChild(heart);
+            }
+            
+            // When the open button is clicked, show the proposal
+            openBtn.addEventListener('click', function() {
+                // Add transition effect
+                teaserPage.style.opacity = '0';
+                teaserPage.style.transition = 'opacity 0.8s ease';
+                
+                setTimeout(() => {
+                    teaserPage.style.display = 'none';
+                    proposalPage.style.display = 'flex';
+                    
+                    // Initialize the proposal page
+                    initProposalPage();
+                }, 800);
+            });
+            
+            function initProposalPage() {
+                // Create balloons
+                for (let i = 0; i < 9; i++) {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    balloonsContainer.appendChild(balloon);
+                }
+                
+                // Create falling hearts
+                for (let i = 0; i < 20; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerHTML = '❤️';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 5 + 's';
+                    heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                    heartsContainer.appendChild(heart);
+                }
+                
+                // Function to move the "No" button to a random position
+                function moveNoButton() {
+                    const container = document.querySelector('.buttons-container');
+                    const containerRect = container.getBoundingClientRect();
+                    const buttonRect = noBtn.getBoundingClientRect();
+                    
+                    // Calculate max positions to keep button within container
+                    const maxX = containerRect.width - buttonRect.width - 20;
+                    const maxY = containerRect.height - buttonRect.height - 20;
+                    
+                    // Generate random positions within container bounds
+                    const randomX = Math.random() * maxX;
+                    const randomY = Math.random() * maxY;
+                    
+                    // Apply new position
+                    noBtn.style.left = randomX + 'px';
+                    noBtn.style.top = randomY + 'px';
+                }
+                
+                // Make the "No" button run away when hovered or clicked
+                noBtn.addEventListener('mouseover', moveNoButton);
+                noBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    moveNoButton();
+                    
+                    // Add a funny message when trying to click "No"
+                    const funnyMessages = [
+                        "Oh come on! Give me a chance!",
+                        "I'm not giving up that easily!",
+                        "You can run but you can't hide!",
+                        "I'll keep asking forever!",
+                        "My love will find a way!",
+                        "You can't escape my love!",
+                        "I'm persistent, you know!",
+                        "Try again! I'm not taking no for an answer!"
+                    ];
+                    
+                    const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+                    responseMessage.textContent = randomMessage;
+                    responseMessage.classList.add('show');
+                    
+                    // Hide message after 3 seconds
+                    setTimeout(() => {
+                        responseMessage.classList.remove('show');
+                    }, 3000);
+                });
+                
+                // Handle "Yes" button click
+                yesBtn.addEventListener('click', function() {
+                    // Create a celebration effect
+                    responseMessage.textContent = "Yay! You've made me the happiest person! 💕🎉";
+                    responseMessage.classList.add('show');
+                    
+                    // Change the background to a celebration mode
+                    document.getElementById('proposalPage').style.backgroundImage = "radial-gradient(#ff7eb3 3px, transparent 3px)";
+                    document.getElementById('proposalPage').style.backgroundSize = "30px 30px";
+                    
+                    // Create more hearts for celebration
+                    for (let i = 0; i < 30; i++) {
+                        const heart = document.createElement('div');
+                        heart.className = 'heart';
+                        heart.innerHTML = '❤️';
+                        heart.style.left = Math.random() * 100 + '%';
+                        heart.style.animationDelay = Math.random() * 2 + 's';
+                        heart.style.fontSize = (Math.random() * 25 + 20) + 'px';
+                        heart.style.color = '#ff4081';
+                        heartsContainer.appendChild(heart);
+                    }
+                    
+                    // Disable the "No" button
+                    noBtn.removeEventListener('mouseover', moveNoButton);
+                    noBtn.style.display = 'none';
+                    
+                    // Make "Yes" button bigger and change text
+                    yesBtn.textContent = "Thank you, Sandhya! 💝";
+                    yesBtn.style.fontSize = '1.6rem';
+                    yesBtn.style.padding = '20px 50px';
+                    yesBtn.style.backgroundColor = '#d81b60';
+                    yesBtn.disabled = true;
+                });
+                
+                // Initialize the "No" button position
+                moveNoButton();
+            }
+        });
+    </script>
+</body>
+</html>
